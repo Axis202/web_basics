@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bob Miller - A Fascinating Personality</title>
     <style>
@@ -44,10 +45,20 @@
             background-color: #f9f9f9;
             border-left: 6px solid #4682b4;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: border 0.5s ease-in-out;
         }
-        .fun-facts h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+        .ultimate {
+            animation: blinkGold 1s infinite alternate;
+        }
+        @keyframes blinkGold {
+            from {
+                border-color: #ffd700;
+                box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            }
+            to {
+                border-color: #ffdf00;
+                box-shadow: 0 0 25px rgba(255, 223, 0, 0.9);
+            }
         }
         .random-btn {
             display: block;
@@ -65,6 +76,12 @@
         }
         .random-btn:hover {
             background-color: #5f9ea0;
+        }
+        .counter {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: #666;
         }
     </style>
 </head>
@@ -94,6 +111,8 @@
     </section>
 
     <a href="javascript:void(0);" class="random-btn" onclick="generateRandomFact()">Discover More About Bob</a>
+
+    <div class="counter" id="counter">Random facts displayed: 0</div>
 </div>
 
 <script>
@@ -108,9 +127,31 @@
         "He is conducting a personal study to track how many people say 'Hello Bob' to him every year."
     ];
 
+    const ultimateFact = "Bob is secretly the mastermind behind a global treasure hunt that has been running for over 20 years. Only 10 people know about it.";
+    
+    let factCount = 0;
+
     function generateRandomFact() {
-        const factIndex = Math.floor(Math.random() * randomFacts.length);
-        document.getElementById('fun-facts').innerHTML = `<h3>Random Facts About Bob</h3><p>${randomFacts[factIndex]}</p>`;
+        const factContainer = document.getElementById('fun-facts');
+        const counter = document.getElementById('counter');
+        factCount++;
+
+        // Reset the border animation
+        factContainer.classList.remove('ultimate');
+
+        // Generate a random number to determine if the ultimate fact should appear
+        const isUltimate = Math.random() <= 0.1; // 10% chance
+
+        if (isUltimate) {
+            factContainer.innerHTML = `<h3>Ultimate Fact About Bob</h3><p>${ultimateFact}</p>`;
+            factContainer.classList.add('ultimate'); // Add the blinking effect
+        } else {
+            const factIndex = Math.floor(Math.random() * randomFacts.length);
+            factContainer.innerHTML = `<h3>Random Facts About Bob</h3><p>${randomFacts[factIndex]}</p>`;
+        }
+
+        // Update the fact counter
+        counter.innerHTML = `Random facts displayed: ${factCount}`;
     }
 </script>
 
