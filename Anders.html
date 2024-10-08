@@ -182,33 +182,39 @@
     const users = {}; // To store user facts count
 
     function generateRandomFact() {
-        const nameInput = prompt("Enter your name:");
+        const nameInput = document.getElementById('nameInput').value;
+        const errorMessage = document.getElementById('errorMessage');
+        const factContainer = document.getElementById('fun-facts');
+        const counter = document.getElementById('counter');
+        const leaderboardBody = document.querySelector('#leaderboard tbody');
 
-        // Increase user fact count
+       // Check if the user entered their name
+       if (nameInput === '') {
+            errorMessage.style.display = 'block';
+            return;
+        } else {
+            errorMessage.style.display = 'none';
+        }
+        // Update the fact count for the user
         if (!users[nameInput]) {
             users[nameInput] = 0;
         }
         users[nameInput]++;
+        factCount++;
+
 
         const factIndex = Math.floor(Math.random() * randomFacts.length);
         document.getElementById('fun-facts').innerHTML = `<h3>Fun Facts About Anders</h3><p>${randomFacts[factIndex]}</p>`;
 
-        // Update leaderboard
-        updateLeaderboard();
-    }
+       // Update the personalized fact counter
+       counter.innerHTML = `${nameInput}, you've read ${users[nameInput]} random facts about Anders!`;
 
-    function updateLeaderboard() {
-        const leaderboardBody = document.querySelector('#leaderboard tbody');
-        leaderboardBody.innerHTML = ''; // Clear the existing leaderboard
+// Update the leaderboard
+updateLeaderboard(leaderboardBody);
+    
 
-        const sortedUsers = Object.keys(users).sort((a, b) => users[b] - users[a]);
-
-        sortedUsers.forEach((user, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `<td>${index + 1}</td><td>${user}</td><td>${users[user]}</td>`;
-            leaderboardBody.appendChild(row);
-        });
-    }
+ 
+}
 </script>
 
 </body>
