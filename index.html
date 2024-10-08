@@ -1,12 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <title>Page Title</title>
 </head>
 <body>
 
-<h1>Hello World! Test 2 My First Heading</h1>
-<p>My first paragraph.</p>
+<header>
+    <h1>Bob Miller – A Man with Many Stories</h1>
+</header>
+
+<div class="container">
+    <section>
+        <h2>About Bob Miller</h2>
+        <p>
+            Bob Miller, born on February 14th, 1975, is a man of remarkable diversity and uniqueness. Raised in a small town, he developed an early sense of curiosity and an insatiable thirst for knowledge. Although he may appear unassuming, beneath his calm exterior lies a profound and fascinating personality.
+        </p>
+        <p>
+            During his youth, Bob showed interest in a wide variety of subjects, ranging from philosophy to science and art. This led him to become a self-taught explorer of ideas, constantly seeking the unknown. His ability to explain complex ideas in simple terms earned him a reputation as a deep thinker, often referred to as the "philosopher of the everyday."
+        </p>
+        <p>
+            Professionally, Bob has ventured into numerous fields. From working as an independent consultant to engaging in creative projects as a writer, Bob has made a name for himself in the world of innovation and creativity. However, what truly sets him apart are his seemingly random hobbies and unusual habits, which never cease to surprise those around him.
+        </p>
+    </section>
+
+    <section class="fun-facts" id="fun-facts">
+        <h3>Random Facts About Bob</h3>
+        <p>Bob enjoys analyzing clouds during his walks, finding patterns in their shapes that others simply cannot see.</p>
+    </section>
+
+    <a href="javascript:void(0);" class="random-btn" onclick="generateRandomFact()">Discover More About Bob</a>
+</div>
+
+<script>
+    const randomFacts = [
+        "Bob once developed a detailed theory on how coffee mugs could influence the global economy.",
+        "He owns a collection of over 100 antique compasses, even though he rarely hikes.",
+        "In the 90s, Bob secretly wrote poetry about clocks—each poem focused on a different time of day.",
+        "Bob firmly believes that by folding paper airplanes in the correct way, you could revolutionize air resistance.",
+        "One day, Bob baked 12 different types of bread, just to prove that so many variations exist.",
+        "He has created a detailed map of fictional worlds that he claims to have visited in his dreams.",
+        "Bob's cat, also named Bob, has more Instagram followers than he does.",
+        "He is conducting a personal study to track how many people say 'Hello Bob' to him every year."
+    ];
+
+    function generateRandomFact() {
+        const factIndex = Math.floor(Math.random() * randomFacts.length);
+        document.getElementById('fun-facts').innerHTML = `<h3>Random Facts About Bob</h3><p>${randomFacts[factIndex]}</p>`;
+    }
+</script>
 
 </body>
 </html>
