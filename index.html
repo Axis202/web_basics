@@ -12,6 +12,7 @@
             line-height: 1.8;
             margin: 0;
             padding: 0;
+            transition: background-color 0.3s ease;
         }
         header {
             background: linear-gradient(90deg, #333, #555);
@@ -31,6 +32,7 @@
             background: #fff;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            transition: background-color 0.3s ease;
         }
         h2 {
             color: #333;
@@ -49,6 +51,7 @@
             border-left: 6px solid #4682b4;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
             border-radius: 8px;
+            transition: border-color 0.5s ease-in-out;
         }
         .fun-facts h3 {
             margin-bottom: 10px;
@@ -72,25 +75,61 @@
         .random-btn:hover {
             background-color: #5f9ea0;
         }
-        /* Button for Anders on the right */
+        /* Glowing animation for ultimate facts */
+        @keyframes glowGold {
+            0% {
+                border-color: #ffd700;
+                background-color: #fff;
+                box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+            }
+            50% {
+                border-color: #ffdf00;
+                background-color: #fffbea;
+                box-shadow: 0 0 30px rgba(255, 223, 0, 1);
+            }
+            100% {
+                border-color: #ffd700;
+                background-color: #fff;
+                box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+            }
+        }
+        /* Blinking effect for the entire page */
+        @keyframes pageBlink {
+            0% {
+                background-color: #f4f4f4;
+            }
+            50% {
+                background-color: #ffd700;
+            }
+            100% {
+                background-color: #f4f4f4;
+            }
+        }
+        /* Ultimate fact styles */
+        .ultimate-fact {
+            animation: glowGold 1s infinite alternate;
+        }
+        .page-blink {
+            animation: pageBlink 1.5s infinite;
+        }
         .anders-btn {
-            position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+            display: block;
+            margin: 40px auto;
+            padding: 15px;
             background-color: #ff69b4; /* Pink color */
             color: white;
-            padding: 15px 20px;
             font-size: 1.2rem;
-            border-radius: 30px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
             text-decoration: none;
+            border-radius: 30px;
             font-weight: bold;
+            width: 300px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
         .anders-btn:hover {
             background-color: #ff85b4;
-            transform: translateY(-50%) scale(1.05);
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -100,7 +139,7 @@
     <h1>Bob Miller – A Man with Many Stories</h1>
 </header>
 
-<div class="container">
+<div class="container" id="main-container">
     <section>
         <h2>About Bob Miller</h2>
         <p>
@@ -112,6 +151,10 @@
         <p>
             Professionally, Bob has ventured into numerous fields. From working as an independent consultant to engaging in creative projects as a writer, Bob has made a name for himself in the world of innovation and creativity. However, what truly sets him apart are his seemingly random hobbies and unusual habits, which never cease to surprise those around him.
         </p>
+
+        <!-- Button to link to Anders page below the first border -->
+        <a href="Anders.html" class="anders-btn">Wanna know more about Anders the Rizz?! Click here!</a>
+
     </section>
 
     <section class="fun-facts" id="fun-facts">
@@ -122,9 +165,6 @@
     <a href="javascript:void(0);" class="random-btn" onclick="generateRandomFact()">Discover More About Bob</a>
 
 </div>
-
-<!-- Button to link to Anders page -->
-<a href="Anders.html" class="anders-btn">Wanna know more about Anders the Rizz?! Click here!</a>
 
 <script>
     const randomFacts = [
@@ -226,11 +266,35 @@
         "He thinks you can navigate the world using only your sense of smell.",
         "Bob once made a suit of armor out of recycled soda cans.",
         "He believes he can slow down time by blinking at a specific rate."
+        // Add more random facts here...
+    ];
+
+    const ultimateFacts = [
+        "Ultimate Fact 1: Bob is secretly the mastermind behind a global treasure hunt spanning 50 years. Only 5 people have solved it!",
+        "Ultimate Fact 2: Bob once discovered a new mathematical formula that scientists are still trying to understand."
     ];
 
     function generateRandomFact() {
-        const factIndex = Math.floor(Math.random() * randomFacts.length);
-        document.getElementById('fun-facts').innerHTML = `<h3>Random Facts About Bob</h3><p>${randomFacts[factIndex]}</p>`;
+        const factContainer = document.getElementById('fun-facts');
+        const mainContainer = document.getElementById('main-container');
+        const body = document.body;
+
+        // Generate a random number to determine if an ultimate fact should appear
+        const isUltimate = Math.random() <= 0.001; // 0.1% chance (0.001 probability)
+
+        if (isUltimate) {
+            // Select a random ultimate fact and display it
+            const ultimateFactIndex = Math.floor(Math.random() * ultimateFacts.length);
+            factContainer.innerHTML = `<h3>Ultimate Fact About Bob</h3><p>${ultimateFacts[ultimateFactIndex]}</p>`;
+            factContainer.classList.add('ultimate-fact'); // Add glowing effect to ultimate fact
+            body.classList.add('page-blink'); // Blink the entire page
+        } else {
+            // Select and display a normal random fact
+            const factIndex = Math.floor(Math.random() * randomFacts.length);
+            factContainer.innerHTML = `<h3>Random Facts About Bob</h3><p>${randomFacts[factIndex]}</p>`;
+            factContainer.classList.remove('ultimate-fact'); // Remove glowing effect if it was there
+            body.classList.remove('page-blink'); // Stop page blinking if it was blinking
+        }
     }
 </script>
 
