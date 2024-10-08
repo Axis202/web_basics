@@ -183,10 +183,6 @@
 
     function generateRandomFact() {
         const nameInput = prompt("Enter your name:");
-        if (!nameInput) {
-            alert("Please enter your name to see the facts.");
-            return;
-        }
 
         // Increase user fact count
         if (!users[nameInput]) {
