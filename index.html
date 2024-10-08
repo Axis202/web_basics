@@ -83,6 +83,37 @@
             font-size: 1.1rem;
             color: #666;
         }
+        .name-input {
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            font-size: 1.1rem;
+            width: 50%;
+            text-align: center;
+            border: 2px solid #4682b4;
+            border-radius: 5px;
+        }
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #4682b4;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #4682b4;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -105,6 +136,12 @@
         </p>
     </section>
 
+    <!-- Name Input -->
+    <input type="text" id="nameInput" class="name-input" placeholder="Enter your name here">
+
+    <!-- Error Message -->
+    <div class="error" id="errorMessage" style="display: none;">Please enter your name!</div>
+
     <section class="fun-facts" id="fun-facts">
         <h3>Random Facts About Bob</h3>
         <p>Bob enjoys analyzing clouds during his walks, finding patterns in their shapes that others simply cannot see.</p>
@@ -113,11 +150,25 @@
     <a href="javascript:void(0);" class="random-btn" onclick="generateRandomFact()">Discover More About Bob</a>
 
     <div class="counter" id="counter">Random facts displayed: 0</div>
+
+    <!-- Leaderboard -->
+    <table id="leaderboard">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Facts Read</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dynamic content will be inserted here -->
+        </tbody>
+    </table>
 </div>
 
 <script>
     const randomFacts = [
-        "Bob once developed a detailed theory on how coffee mugs could influence the global economy.",
+    "Bob once developed a detailed theory on how coffee mugs could influence the global economy.",
         "He owns a collection of over 100 antique compasses, even though he rarely hikes.",
         "In the 90s, Bob secretly wrote poetry about clocks—each poem focused on a different time of day.",
         "Bob firmly believes that by folding paper airplanes in the correct way, you could revolutionize air resistance.",
@@ -206,23 +257,41 @@
         "Bob has tried to set the world record for most socks worn at once.",
         "He thinks you can navigate the world using only your sense of smell.",
         "Bob once made a suit of armor out of recycled soda cans.",
-        "He believes he can slow down time by blinking at a specific rate."
-    ];
+        "He believes he can slow down time by blinking at a specific rate.",
+      ];
 
     const ultimateFact = "Bob is secretly the mastermind behind a global treasure hunt that has been running for over 20 years. Only 10 people know about it.";
     
     let factCount = 0;
+    const users = {}; // Store user facts count here
 
     function generateRandomFact() {
+        const nameInput = document.getElementById('nameInput').value;
+        const errorMessage = document.getElementById('errorMessage');
         const factContainer = document.getElementById('fun-facts');
         const counter = document.getElementById('counter');
+        const leaderboardBody = document.querySelector('#leaderboard tbody');
+
+        // Check if the user entered their name
+        if (nameInput === '') {
+            errorMessage.style.display = 'block';
+            return;
+        } else {
+            errorMessage.style.display = 'none';
+        }
+
+        // Update the fact count for the user
+        if (!users[nameInput]) {
+            users[nameInput] = 0;
+        }
+        users[nameInput]++;
         factCount++;
 
         // Reset the border animation
         factContainer.classList.remove('ultimate');
 
         // Generate a random number to determine if the ultimate fact should appear
-        const isUltimate = Math.random() <= 0.1; // 10% chance
+        const isUltimate = Math.random() <= 0.0001; // 0.01% chance
 
         if (isUltimate) {
             factContainer.innerHTML = `<h3>Ultimate Fact About Bob</h3><p>${ultimateFact}</p>`;
@@ -232,8 +301,26 @@
             factContainer.innerHTML = `<h3>Random Facts About Bob</h3><p>${randomFacts[factIndex]}</p>`;
         }
 
-        // Update the fact counter
-        counter.innerHTML = `Random facts displayed: ${factCount}`;
+        // Update the personalized fact counter
+        counter.innerHTML = `${nameInput}, you've read ${users[nameInput]} random facts about Bob!`;
+
+        // Update the leaderboard
+        updateLeaderboard(leaderboardBody);
+    }
+
+    function updateLeaderboard(leaderboardBody) {
+        // Clear existing leaderboard rows
+        leaderboardBody.innerHTML = '';
+
+        // Sort users by the number of facts they've read
+        const sortedUsers = Object.keys(users).sort((a, b) => users[b] - users[a]);
+
+        // Populate the leaderboard
+        sortedUsers.forEach((user, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${index + 1}</td><td>${user}</td><td>${users[user]}</td>`;
+            leaderboardBody.appendChild(row);
+        });
     }
 </script>
 
