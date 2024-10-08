@@ -72,8 +72,26 @@
         .random-btn:hover {
             background-color: #ff7f50;
         }
-        .leaderboard {
-            margin: 50px 0;
+        .counter {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: #666;
+        }
+        .name-input {
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            font-size: 1.1rem;
+            width: 50%;
+            text-align: center;
+            border: 2px solid #ff6347;
+            border-radius: 5px;
+        }
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
         }
         table {
             width: 100%;
@@ -113,12 +131,21 @@
         </p>
     </section>
 
+    <!-- User name input -->
+    <input type="text" id="nameInput" class="name-input" placeholder="Enter your name to start reading facts">
+
+    <!-- Error message for missing name -->
+    <div class="error" id="errorMessage" style="display:none;">Please enter your name!</div>
+
     <section class="fun-facts" id="fun-facts">
         <h3>Fun Facts About Anders</h3>
         <p>Anders once played the piano at a prestigious European concert, even though he taught himself how to play just months before the event!</p>
     </section>
 
     <a href="javascript:void(0);" class="random-btn" onclick="generateRandomFact()">Discover More About Anders</a>
+
+    <!-- Counter showing facts read -->
+    <div class="counter" id="counter">Random facts displayed: 0</div>
 
     <!-- Leaderboard -->
     <section class="leaderboard">
@@ -132,7 +159,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Dynamic content will be inserted here -->
+                <!-- Dynamic leaderboard content -->
             </tbody>
         </table>
     </section>
@@ -140,7 +167,7 @@
 
 <script>
     const randomFacts = [
-        "Anders once tried to solve a Rubik's cube while blindfolded... it took him 3 days.",
+    "Anders once tried to solve a Rubik's cube while blindfolded... it took him 3 days.",
     "He speaks seven languages but only orders pizza in Italian.",
     "Anders once climbed a mountain just to get better Wi-Fi.",
     "He wrote an entire novel in Morse code.",
@@ -176,11 +203,13 @@
     "He believes that the key to flying is believing hard enough.",
     "Anders once spent a weekend pretending to be a mime.",
     "He’s convinced that his shadow has a mind of its own.",
-        // Add more facts to complete the 150 facts list...
+        // ... Continue adding more facts up to 150
     ];
 
-    const users = {}; // To store user facts count
+    let factCount = 0;
+    const users = {}; // To store users' progress
 
+    // Function to generate a random fact
     function generateRandomFact() {
         const nameInput = document.getElementById('nameInput').value;
         const errorMessage = document.getElementById('errorMessage');
@@ -188,13 +217,14 @@
         const counter = document.getElementById('counter');
         const leaderboardBody = document.querySelector('#leaderboard tbody');
 
-       // Check if the user entered their name
-       if (nameInput === '') {
+        // Check if the user entered their name
+        if (nameInput === '') {
             errorMessage.style.display = 'block';
             return;
         } else {
             errorMessage.style.display = 'none';
         }
+
         // Update the fact count for the user
         if (!users[nameInput]) {
             users[nameInput] = 0;
@@ -202,20 +232,30 @@
         users[nameInput]++;
         factCount++;
 
-
         const factIndex = Math.floor(Math.random() * randomFacts.length);
-        document.getElementById('fun-facts').innerHTML = `<h3>Fun Facts About Anders</h3><p>${randomFacts[factIndex]}</p>`;
+        factContainer.innerHTML = `<h3>Fun Facts About Anders</h3><p>${randomFacts[factIndex]}</p>`;
 
-       // Update the personalized fact counter
-       counter.innerHTML = `${nameInput}, you've read ${users[nameInput]} random facts about Anders!`;
+        // Update the fact counter
+        counter.innerHTML = `You've read ${users[nameInput]} random facts about Anders!`;
 
-// Update the leaderboard
-updateLeaderboard(leaderboardBody);
-    
+        // Update the leaderboard
+        updateLeaderboard(leaderboardBody);
+    }
 
- 
-}
+    // Function to update the leaderboard
+    function updateLeaderboard(leaderboardBody) {
+        // Clear the leaderboard before updating
+        leaderboardBody.innerHTML = '';
+
+        // Sort users by the number of facts read
+        const sortedUsers = Object.keys(users).sort((a, b) => users[b] - users[a]);
+
+        // Populate the leaderboard
+        sortedUsers.forEach((user, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${index + 1}</td><td>${user}</td><td>${users[user]}</td>`;
+            leaderboardBody.appendChild(row);
+        });
+    }
 </script>
 
-</body>
-</html>
