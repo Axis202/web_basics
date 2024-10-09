@@ -6,11 +6,12 @@ function getFacts(person) {
       "Hamid can speak 7 different languages.",
       "Hamid is a skilled coder and a chess grandmaster.",
     ],
-    anders: [
-      "Anders the Rizz II is famous for his smooth-talking skills.",
-      "He can charm anyone in under 5 minutes.",
-      "Anders once convinced an entire room to dance spontaneously!",
-    ],
+    'anders': [
+  'Anders once convinced an entire crowd to start a dance-off!',
+  'He has a secret hobby of collecting rare books.',
+  'Anders is rumored to have the ability to talk his way out of any situation.'
+]
+    ,
     daniel: [
       "Daniel the Great built a castle with his own hands.",
       "He once fought a dragon and won.",
