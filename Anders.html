@@ -1,192 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anders Rizz - The Man of Many Talents</title>
-    <style>
-        body {
-            font-family: 'Georgia', serif;
-            background-color: #f4f4f4;
-            color: #333;
-            line-height: 1.8;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s ease;
-        }
-        header {
-            background: linear-gradient(90deg, #555, #333);
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-        }
-        header h1 {
-            font-size: 2.8rem;
-            margin: 0;
-            font-weight: 600;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 20px;
-            background: #fff;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            transition: background-color 0.3s ease;
-        }
-        h2 {
-            color: #333;
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-        }
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            color: #555;
-        }
-        .fun-facts {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #fafafa;
-            border-left: 6px solid #ff6347;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            border-radius: 8px;
-            transition: border-color 0.5s ease-in-out;
-        }
-        .fun-facts h3 {
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .random-btn {
-            display: block;
-            width: 250px;
-            margin: 40px auto;
-            padding: 15px;
-            background-color: #ff6347;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-        .random-btn:hover {
-            background-color: #ff7f50;
-        }
-        /* Glowing animation for ultimate facts */
-        @keyframes glowGold {
-            0% {
-                border-color: #ffd700;
-                background-color: #fff;
-                box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
-            }
-            50% {
-                border-color: #ffdf00;
-                background-color: #fffbea;
-                box-shadow: 0 0 30px rgba(255, 223, 0, 1);
-            }
-            100% {
-                border-color: #ffd700;
-                background-color: #fff;
-                box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
-            }
-        }
-        /* Blinking effect for the entire page */
-        @keyframes pageBlink {
-            0% {
-                background-color: #f4f4f4;
-            }
-            50% {
-                background-color: #ffd700;
-            }
-            100% {
-                background-color: #f4f4f4;
-            }
-        }
-        /* Ultimate fact styles */
-        .ultimate-fact {
-            animation: glowGold 1s infinite alternate;
-        }
-        .page-blink {
-            animation: pageBlink 1.5s infinite;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lostminds - Anders the Rizz II</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="container">
+    <aside id="sidebar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="anders.html">Anders the Rizz II</a></li>
+        <li><a href="daniel.html">Daniel the Great</a></li>
+        <li><a href="hanna.html">Hanna</a></li>
+      </ul>
+    </aside>
+    
+    <main>
+      <header>
+        <h1>Anders the Rizz II</h1>
+      </header>
 
-<header>
-    <h1>Anders Rizz – The Man of Many Talents</h1>
-</header>
+      <section>
+        <p>Anders the Rizz II is known for his unparalleled charm and persuasive powers.</p>
+      </section>
 
-<div class="container" id="main-container">
-    <section>
-        <h2>About Anders Rizz</h2>
-        <p>
-            Anders Rizz, born on July 12, 1985, is known for his magnetic charisma and wide-ranging talents. Raised in a small town in Scandinavia, Anders developed a deep love for creativity and innovation at a young age. His peers often describe him as a "Renaissance man," capable of excelling in numerous fields, from music to business.
-        </p>
-        <p>
-            Throughout his life, Anders has embraced the power of connection, using his interpersonal skills to forge strong relationships with people from all walks of life. His natural charm—affectionately called "Rizz" by his friends—has made him a figure of admiration. Whether giving a speech at an international summit or performing in a concert hall, Anders exudes confidence and warmth.
-        </p>
-        <p>
-            Over the years, Anders has built a career that bridges multiple disciplines. He has launched successful businesses, composed music for major events, and traveled to over 50 countries to share his knowledge and passion. Despite his achievements, he remains humble and dedicated to mentoring the next generation of entrepreneurs.
-        </p>
-    </section>
+      <button onclick="generateFact('anders')">Generate Random Fact</button>
+      <p id="random-fact"></p>
+    </main>
+  </div>
 
-    <section class="fun-facts" id="fun-facts">
-        <h3>Fun Facts About Anders</h3>
-        <p>Anders once played the piano at a prestigious European concert, even though he taught himself how to play just months before the event!</p>
-    </section>
-
-    <a href="javascript:void(0);" class="random-btn" onclick="generateRandomFact()">Discover More About Anders</a>
-
-</div>
-
-<script>
-    const randomFacts = [
-        "Anders once tried to solve a Rubik's cube while blindfolded... it took him 3 days.",
-        "He speaks seven languages but only orders pizza in Italian.",
-        "Anders once climbed a mountain just to get better Wi-Fi.",
-        "He wrote an entire novel in Morse code.",
-        "Anders convinced a group of seagulls that he was their leader for a day.",
-        "He invented a new type of dance move called 'The Rizz-Twist.'",
-        "Anders has a collection of invisible trophies that he awards himself for random achievements.",
-        "He once tried to train a goldfish to play soccer.",
-        "Anders firmly believes that socks should always match your mood.",
-        
-        "He can whistle in 12 different languages.",
-        // Add more random facts here...
-    ];
-
-    const ultimateFacts = [
-        "Ultimate Fact 1: Anders is secretly an international chess grandmaster, but plays under a pseudonym.",
-        "Ultimate Fact 2: Anders once designed a hidden message in his music that only one person has ever solved."
-    ];
-
-    function generateRandomFact() {
-        const factContainer = document.getElementById('fun-facts');
-        const mainContainer = document.getElementById('main-container');
-        const body = document.body;
-
-        // Generate a random number to determine if an ultimate fact should appear
-        const isUltimate = Math.random() <= 0.001; // 0.1% chance (0.001 probability)
-
-        if (isUltimate) {
-            // Select a random ultimate fact and display it
-            const ultimateFactIndex = Math.floor(Math.random() * ultimateFacts.length);
-            factContainer.innerHTML = `<h3>Ultimate Fact About Anders</h3><p>${ultimateFacts[ultimateFactIndex]}</p>`;
-            factContainer.classList.add('ultimate-fact'); // Add glowing effect to ultimate fact
-            body.classList.add('page-blink'); // Blink the entire page
-        } else {
-            // Select and display a normal random fact
-            const factIndex = Math.floor(Math.random() * randomFacts.length);
-            factContainer.innerHTML = `<h3>Fun Facts About Anders</h3><p>${randomFacts[factIndex]}</p>`;
-            factContainer.classList.remove('ultimate-fact'); // Remove glowing effect if it was there
-            body.classList.remove('page-blink'); // Stop page blinking if it was blinking
-        }
-    }
-</script>
-
+  <script src="script.js"></script>
+  <script src="facts.js"></script>
 </body>
 </html>
